@@ -3,6 +3,10 @@ import More from "../assets/more.png";
 
 export const NavBar = () => {
   const [toggle, setToggle] = useState(false);
+  const routes = [
+    { name: "หน้าหลัก", url: "/" },
+    { name: "รายการสั่งอาหาร", url: "/order" },
+  ];
 
   return (
     <>
@@ -13,8 +17,10 @@ export const NavBar = () => {
         <div className="flex-auto text-xl font-bold ml-2 mt-3">ครัวคุณบิน</div>
       </div>
       {toggle && (
-        <div className="w-48 h-3/4 bg-green-100 absolute">
-          <div>หน้าหลัก</div>
+        <div className="w-full bg-white shadow">
+          {routes.map((route) => (
+            <div className="py-2 pl-2 active:bg-blue-100">{route.name}</div>
+          ))}
         </div>
       )}
     </>
