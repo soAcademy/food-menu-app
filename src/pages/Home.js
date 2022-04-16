@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import Banner from "../assets/banner.jpg";
-import axios from 'axios';
+import axios from "axios";
 
 const MenuList = ({ menu }) => (
   <div className="flex mb-4">
@@ -17,20 +17,31 @@ const MenuList = ({ menu }) => (
   </div>
 );
 
+const MenuSection = ({ category, menus }) => (
+  <div>
+    <h4 className="mt-4 mb-2 font-bold">{category}</h4>
+    {menus
+      .filter((menu) => menu.category == category)
+      .map((menu) => (
+        <MenuList menu={menu} />
+      ))}
+  </div>
+);
+
 export const Home = () => {
   const getMenuUrl = process.env.REACT_APP_API_URL + "/get-menus";
+  const foodCategories = ["แนะนำ", "ต้ม", "ผัด", "แกง", "ทอด"];
   const [foodMenus, setFoodMenus] = useState([]);
 
   useEffect(() => {
     const fetchMenus = async () => {
       const result = await axios.post(getMenuUrl);
-      console.log(result.data);
       setFoodMenus(result.data);
-    }
+    };
 
     fetchMenus();
   }, []);
-  
+
   return (
     <div className="px-4">
       <h1 className="text-3xl text-center mt-4">ร้านอาหารครัวคุณบิน</h1>
@@ -42,9 +53,8 @@ export const Home = () => {
         กันมารุ่นสู่รุ่น จัดแต่งมาบนจาน พร้อมเสิร์ฟความอร่อยให้กับคุณ
       </p>
       <img src={Banner} className="w-full mt-4 rounded-lg" />
-      <h4 className="mt-4 mb-2 font-bold">รายการแนะนำ</h4>
-      {foodMenus.map((menu) => (
-        <MenuList menu={menu} />
+      {foodCategories.map((category) => (
+        <MenuSection category={category} menus={foodMenus} />
       ))}
     </div>
   );
