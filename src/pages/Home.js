@@ -21,7 +21,7 @@ const MenuSection = ({ category, menus }) => (
   <div>
     <h4 className="mt-4 mb-2 font-bold">{category}</h4>
     {menus
-      .filter((menu) => menu.category == category)
+      .filter((menu) => menu.category === category)
       .map((menu) => (
         <MenuList menu={menu} />
       ))}
