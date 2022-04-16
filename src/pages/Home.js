@@ -47,7 +47,6 @@ const MenuSection = ({
 );
 
 const updateCart = ({ sign, cart, id, name, price }) => {
-  console.log(cart);
   if (cart.some((item) => item.id === id)) {
     return cart.reduce((arr, c) => {
       if (c.id === id) {
