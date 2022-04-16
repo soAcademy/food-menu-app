@@ -8,7 +8,7 @@ export const CartPopup = ({
   toggleCartPopup,
   setToggleCartPopup,
 }) => {
-  const [tableId, setTableId] = useState(undefined);
+  const [tableId, setTableId] = useState(0);
   const [receipt, setReceipt] = useState(undefined);
 
   const submitOrder = async () => {
@@ -28,6 +28,7 @@ export const CartPopup = ({
     );
     console.log(result.data);
     setReceipt(result.data);
+    setCart([]);
   };
 
   return (
