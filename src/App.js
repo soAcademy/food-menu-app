@@ -1,6 +1,7 @@
 import { NavBar } from "./components/NavBar";
 import { Home } from "./pages/Home";
 import { Order } from "./pages/Order";
+import { Analytics } from "./pages/Analytics";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const App = () => (
@@ -9,6 +10,7 @@ const App = () => (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/order" element={<Order />} />
+      <Route path="/analytics" element={<Analytics />} />
     </Routes>
   </BrowserRouter>
 );

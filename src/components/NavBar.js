@@ -7,6 +7,7 @@ export const NavBar = () => {
   const routes = [
     { name: "หน้าหลัก", url: "/" },
     { name: "รายการสั่งอาหาร", url: "/order" },
+    { name: "สถิติ", url: "/analytics" }
   ];
 
   return (
