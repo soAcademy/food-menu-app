@@ -1,4 +1,4 @@
-# Food Menu App by Fon Chonnapat
+# Food Menu App By Sprint Academy
 
 ## Setup
 
@@ -29,3 +29,4 @@ http://localhost:3000
 
 - [Figma Design](https://www.figma.com/file/8EFoDBlMh5HevK2bes3vMO/SoAcademy---Food-Menu-App?node-id=0%3A1)
 - [Slide](https://docs.google.com/presentation/d/1Y8Uq6uAkW_5YmAr0TkRY0o5pLtVMEXwsmGaqor9VYEY/edit#slide=id.gf3d8ff9d8d_0_48)
+
