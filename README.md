@@ -1,4 +1,4 @@
-# Food Menu App By Sprint Academy
+# Food Menu App By Sprint Academy and Fon Chonnapat
 
 ## Setup
 
