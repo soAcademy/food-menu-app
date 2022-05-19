@@ -1,4 +1,4 @@
-# Food Menu App
+# Food Menu App by Fon
 
 ## Setup
 
