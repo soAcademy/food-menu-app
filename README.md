@@ -1,4 +1,4 @@
-# Food Menu App by Fon
+# Food Menu App by Fon Chonnapat
 
 ## Setup
 
