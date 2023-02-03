@@ -4,39 +4,62 @@ import axios from "axios";
 export const Order = () => {
   const [orders, setOrders] = useState([]);
   const [tableId, setTableId] = useState(0);
+  const [updateOrderStatusFlag, setUpdateOrderStatusFlag] = useState(false);
 
   useEffect(() => {
-    const fetchOrders = async () => {
-      const result = await axios.post(
-        process.env.REACT_APP_API_URL + "/get-orders"
-      );
-      console.log(result.data);
-      setOrders(result.data);
-    };
+    axios({
+      method: "post",
+      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-orders-by-table",
+      data: {
+        table_id: tableId,
+      },
+    })
+      .then((response) => {
+        console.log("orderByTableId: ", response.data);
+        setOrders(response.data);
+      })
+      .catch((err) => {
+        console.log("err here: ", err);
+      });
+  }, [tableId, updateOrderStatusFlag]);
 
-    fetchOrders();
-  }, []);
+  const updateOrderStatus = (orderId) => {
+    axios({
+      method: "post",
+      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/update-order-status",
+      data: {
+        order_id: orderId,
+        status: "DONE",
+      },
+    }).then((response) => {
+      console.log("updateOrder: ", response.data);
+      setUpdateOrderStatusFlag(!updateOrderStatusFlag)
+    });
+  };
 
+  const tableList = [...Array(15).keys()]; // [0, 1, 2, 3, ..., 14, 15]
   return (
     <div className="px-4">
       <h1 className="text-3xl text-center mt-4">รายการสั่งอาหาร</h1>
-      <div class="grid grid-cols-4 grid-flow-row gap-4 my-4">
-        {[...Array(20).keys()].map((id) => (
-          <div
+      โต๊ะที่เลือก: {tableId}
+      <div className="grid grid-cols-5 grid-flow-row gap-4 my-4">
+        {tableList.map((id, index) => (
+          <button
+            key={index}
             onClick={() => setTableId(id + 1)}
-            className="bg-red-200 active:bg-red-300 text-center py-2 rounded-lg"
+            className="bg-red-200 active:bg-red-300 text-center py-2 rounded-full"
           >
             {id + 1}
-          </div>
+          </button>
         ))}
       </div>
-      {orders
-        .filter((order) => tableId === 0 || tableId === order.table_id)
-        .map((order) => (
-          <div className="py-2 text-sm">
-            <div>หมายเลขคำสั่ง #{order.order_id}</div>
-            <div>โต๊ะ: {order.table_id}</div>
-            <div>สถานะ: {order.status}</div>
+      จำนวนคำสั่งซื้อ: {orders.length}
+      {orders.map((order) => (
+        <div className="py-2 my-8 text-sm border border-green-700">
+          <div>หมายเลขคำสั่ง #{order.order_id}</div>
+          <div>โต๊ะ: {order.table_id}</div>
+          <div>สถานะ: {order.status}</div>
+          <div className="bg-red-300">
             {order.items.map((item) => (
               <div className="flex">
                 <div className="flex-auto">{item.name}</div>
@@ -45,11 +68,15 @@ export const Order = () => {
                 </div>
               </div>
             ))}
-            <div className="text-right">
-              รวม ฿{order.total_price.toLocaleString()}
-            </div>
           </div>
-        ))}
+          <button onClick={() => updateOrderStatus(order.order_id)}>
+            ทำเสร็จแล้ว
+          </button>
+          <div className="text-right">
+            รวม ฿{order.total_price.toLocaleString()}
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
